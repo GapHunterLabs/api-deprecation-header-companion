@@ -40,5 +40,6 @@
             implementationClass="dev.gaphunter.apideprecationheadercompanion.gutter.MissingDeprecationHeaderLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="kotlin"
             implementationClass="dev.gaphunter.apideprecationheadercompanion.gutter.MissingDeprecationHeaderLineMarkerProvider"/>
+        <notificationGroup id="API Deprecation Header Companion" displayType="BALLOON"/>
     </extensions>
 </idea-plugin>

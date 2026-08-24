@@ -8,6 +8,7 @@ import com.intellij.psi.PsiElement
 import dev.gaphunter.apideprecationheadercompanion.detect.JavaDeprecationFinder
 import dev.gaphunter.apideprecationheadercompanion.detect.KotlinDeprecationFinder
 import dev.gaphunter.apideprecationheadercompanion.model.DeprecationHit
+import dev.gaphunter.apideprecationheadercompanion.review.ReviewPrompt
 
 class MissingDeprecationHeaderLineMarkerProvider : LineMarkerProviderDescriptor(), DumbAware {
 
@@ -28,6 +29,10 @@ class MissingDeprecationHeaderLineMarkerProvider : LineMarkerProviderDescriptor(
         for (element in elements) {
             val hit = hitsByElement[element] ?: continue
             result.add(buildMarker(hit))
+
+            val path = file.virtualFile?.path ?: continue
+            val lineNumber = file.viewProvider.document?.getLineNumber(element.textRange.startOffset) ?: -1
+            ReviewPrompt.recordHit(file.project, "$path:$lineNumber")
         }
     }
 
